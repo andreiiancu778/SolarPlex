@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= typeof titlu !== 'undefined' ? titlu + ' - ' : '' %>solarplexus</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/extra.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="/">☀ solar<span>plexus</span></a>
+  <nav>
+    <a href="/catalog">Catalog</a>
+    <a href="/cos">Coș<% if (nrCos > 0) { %> <span class="count"><%= nrCos %></span><% } %></a>
+    <a href="/cont">Contul meu</a>
+    <a href="/admin">Admin</a>
+  </nav>
+</header>
+<main class="container">

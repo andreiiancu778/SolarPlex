@@ -1,0 +1,17 @@
+<%- include('partials/header', { titlu: 'Contul meu' }) %>
+<h1>Contul meu</h1>
+<div class="panel"><strong><%= user.nume %></strong><br><%= user.email %></div>
+<h2>Comenzile mele</h2>
+<% if (!comenzi.length) { %><p>Nu ai nicio comandă încă.</p><% } %>
+<% comenzi.forEach(c => { %>
+  <div class="order">
+    <strong>Comanda #<%= c.codcom %></strong> · <%= new Date(c.data_comanda).toLocaleString('ro-RO') %>
+    · <span class="badge"><%= c.status %></span> · <strong><%= c.valoare %> RON</strong>
+    <ul>
+      <% c.produse.forEach(p => { %>
+        <li><%= p.den || 'Produs șters' %> × <%= p.cant %> la <%= p.pret_unitar %> RON</li>
+      <% }) %>
+    </ul>
+  </div>
+<% }) %>
+<%- include('partials/footer') %>

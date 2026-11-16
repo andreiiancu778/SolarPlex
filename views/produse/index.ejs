@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Produse - solarplexus</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f5a623; }
+        .btn { padding: 5px 10px; text-decoration: none; background: #333; color: white; border: none; cursor: pointer; }
+        .del { background: #c0392b; }
+        form { display: inline; }
+    </style>
+</head>
+<body>
+<h1>solarplexus - Produse</h1>
+<p><a class="btn" href="/produse/nou">+ Adauga produs</a></p>
+
+<table>
+    <tr>
+        <th>Cod</th><th>Denumire</th><th>Categorie</th>
+        <th>Putere (W)</th><th>Stoc</th><th>Pret (RON)</th><th>Actiuni</th>
+    </tr>
+    <% produse.forEach(p => { %>
+        <tr>
+            <td><%= p.codp %></td>
+            <td><%= p.den %></td>
+            <td><%= p.categorie %></td>
+            <td><%= p.putere %></td>
+            <td><%= p.stoc %></td>
+            <td><%= p.pret %></td>
+            <td>
+                <a class="btn" href="/produse/<%= p.codp %>/edit">Editeaza</a>
+                <form method="POST" action="/produse/<%= p.codp %>/sterge"
+                      onsubmit="return confirm('Sigur vrei sa stergi produsul?')">
+                    <button class="btn del" type="submit">Sterge</button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+</table>
+</body>
+</html>

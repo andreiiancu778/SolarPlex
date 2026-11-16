@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title><%= produs ? 'Editeaza produs' : 'Produs nou' %></title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; max-width: 400px; }
+        label { display: block; margin-top: 12px; }
+        input, select { width: 100%; padding: 6px; }
+        button { margin-top: 15px; padding: 8px 14px; }
+    </style>
+</head>
+<body>
+<h1><%= produs ? 'Editeaza produs' : 'Produs nou' %></h1>
+
+<form method="POST" action="<%= produs ? '/produse/' + produs.codp : '/produse' %>">
+    <label>Categorie
+        <select name="codcat" required>
+            <% categorii.forEach(c => { %>
+                <option value="<%= c.codcat %>"
+                        <%= produs && produs.codcat === c.codcat ? 'selected' : '' %>>
+                    <%= c.denumire %>
+                </option>
+            <% }) %>
+        </select>
+    </label>
+
+    <label>Denumire
+        <input type="text" name="den" required value="<%= produs ? produs.den : '' %>">
+    </label>
+
+    <label>Putere (W)
+        <input type="number" name="putere" value="<%= produs && produs.putere ? produs.putere : '' %>">
+    </label>
+
+    <label>Stoc
+        <input type="number" name="stoc" min="0" required value="<%= produs ? produs.stoc : '' %>">
+    </label>
+
+    <label>Pret (RON)
+        <input type="number" name="pret" min="0" step="0.01" required value="<%= produs ? produs.pret : '' %>">
+    </label>
+
+    <button type="submit">Salveaza</button>
+    <a href="/produse">Anuleaza</a>
+</form>
+</body>
+</html>

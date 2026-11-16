@@ -1,0 +1,16 @@
+.count { background: var(--amber); color: #111; border-radius: 20px; padding: 1px 8px; font-size: .8rem; font-weight: bold; }
+.tbl { border-collapse: collapse; width: 100%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+.tbl th, .tbl td { padding: 10px 12px; border-bottom: 1px solid #e6e9f0; text-align: left; }
+.tbl th { background: var(--dark); color: white; }
+.total { text-align: right; font-size: 1.4rem; font-weight: bold; margin: 18px 0; }
+.btn-sm { padding: 5px 10px; font-size: .85rem; border-radius: 6px; border: none; cursor: pointer; background: var(--dark); color: white; }
+.btn-red { background: #c0392b; }
+.badge { padding: 3px 10px; border-radius: 20px; font-size: .8rem; background: #e8eefc; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 20px 0; }
+.stat { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+.stat b { display: block; font-size: 1.8rem; color: var(--dark); }
+.panel { background: white; border-radius: 12px; padding: 18px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,.07); overflow-x: auto; }
+.inline { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 6px 0; }
+.inline input, .inline select, .rform select, .rform textarea { padding: 7px; border: 1px solid #ccd; border-radius: 6px; font: inherit; }
+.order { background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+.rform { background: white; border-radius: 10px; padding: 16px; margin: 14px 0; display: grid; gap: 8px; max-width: 480px; }

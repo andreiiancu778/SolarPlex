@@ -1,0 +1,35 @@
+<%- include('partials/header', { titlu: 'Acasă' }) %>
+
+<section class="hero">
+    <h1>Energie solară pentru casa ta</h1>
+    <p>Panouri fotovoltaice, invertoare și acumulatori de la branduri de încredere.</p>
+    <br>
+    <a class="btn" href="/catalog">Vezi catalogul</a>
+</section>
+
+<section class="banners">
+    <div class="banner b1">-15% la panourile fotovoltaice<small>Ofertă limitată</small></div>
+    <div class="banner b2">Transport gratuit peste 2000 RON<small>Pe tot teritoriul țării</small></div>
+    <div class="banner b3">Pachete complete on-grid și hibrid<small>Panouri + invertor + baterii</small></div>
+</section>
+
+<h2 class="section">Categorii</h2>
+<section class="cats">
+    <% categorii.forEach(c => { %>
+        <a class="cat" href="/catalog?cat=<%= c.codcat %>">
+            <div class="ico"><%= icon(c.denumire) %></div>
+            <h3><%= c.denumire %></h3>
+            <p><%= c.descriere %></p>
+            <small><%= c.nr %> produse</small>
+        </a>
+    <% }) %>
+</section>
+
+<h2 class="section">Produse populare</h2>
+<section class="grid">
+    <% populare.forEach(p => { %>
+        <%- include('partials/card', { p: p }) %>
+    <% }) %>
+</section>
+
+<%- include('partials/footer') %>

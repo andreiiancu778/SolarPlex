@@ -1,0 +1,30 @@
+<%- include('partials/header', { titlu: 'Catalog' }) %>
+
+<h1>Catalog produse</h1>
+
+<form class="filters" method="GET" action="/catalog">
+    <input type="text" name="q" placeholder="Caută produs..." value="<%= q %>">
+    <select name="cat">
+        <option value="">Toate categoriile</option>
+        <% categorii.forEach(c => { %>
+            <option value="<%= c.codcat %>" <%= String(c.codcat) === String(cat) ? 'selected' : '' %>><%= c.denumire %></option>
+        <% }) %>
+    </select>
+    <select name="sort">
+        <option value="nou" <%= sort === 'nou' ? 'selected' : '' %>>Cele mai noi</option>
+        <option value="pret_asc" <%= sort === 'pret_asc' ? 'selected' : '' %>>Preț crescător</option>
+        <option value="pret_desc" <%= sort === 'pret_desc' ? 'selected' : '' %>>Preț descrescător</option>
+        <option value="putere_desc" <%= sort === 'putere_desc' ? 'selected' : '' %>>Putere descrescătoare</option>
+    </select>
+    <button class="btn" type="submit">Filtrează</button>
+</form>
+
+<p><%= produse.length %> produse găsite</p>
+
+<section class="grid">
+    <% produse.forEach(p => { %>
+        <%- include('partials/card', { p: p }) %>
+    <% }) %>
+</section>
+
+<%- include('partials/footer') %>

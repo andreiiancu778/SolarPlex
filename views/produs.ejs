@@ -1,0 +1,44 @@
+<%- include('partials/header', { titlu: produs.den }) %>
+<p><a href="/catalog">← Înapoi la catalog</a></p>
+<section class="detail">
+  <div class="big"><%= icon(produs.categorie) %></div>
+  <div>
+    <span class="tag"><%= produs.categorie %></span>
+    <h1><%= produs.den %></h1>
+    <% if (produs.putere) { %><p class="spec">Putere: <strong><%= produs.putere %> W</strong></p><% } %>
+    <% if (medie) { %><p class="stars">★ <%= medie %> / 5 (<%= recenzii.length %> recenzii)</p><% } %>
+    <p class="price"><%= produs.pret %> RON</p>
+    <p class="<%= produs.stoc > 0 ? 'ok' : 'out' %>"><%= produs.stoc > 0 ? 'În stoc: ' + produs.stoc + ' buc.' : 'Stoc epuizat' %></p>
+    <% if (produs.stoc > 0) { %>
+      <form method="POST" action="/cos/adauga/<%= produs.codp %>">
+        <input type="number" name="cant" value="1" min="1" max="<%= produs.stoc %>">
+        <button class="btn" type="submit">Adaugă în coș</button>
+      </form>
+    <% } %>
+  </div>
+</section>
+
+<h2 class="section">Recenzii</h2>
+<% if (!recenzii.length) { %><p>Încă nu există recenzii pentru acest produs.</p><% } %>
+<% recenzii.forEach(r => { %>
+  <div class="review">
+    <strong><%= r.nume %></strong>
+    <span class="stars"><%= '★'.repeat(r.rating) %><%= '☆'.repeat(5 - r.rating) %></span>
+    <% if (r.codu === codu) { %>
+      <form method="POST" action="/recenzii/<%= r.codrec %>/sterge" style="display:inline;float:right">
+        <button class="btn-sm btn-red">Șterge</button></form>
+    <% } %>
+    <p><%= r.comentariu %></p>
+  </div>
+<% }) %>
+
+<form class="rform" method="POST" action="/produs/<%= produs.codp %>/recenzie">
+  <strong>Adaugă o recenzie</strong>
+  <select name="rating">
+    <option value="5">5 - Excelent</option><option value="4">4 - Bun</option>
+    <option value="3">3 - Ok</option><option value="2">2 - Slab</option><option value="1">1 - Foarte slab</option>
+  </select>
+  <textarea name="comentariu" rows="3" placeholder="Părerea ta..." required></textarea>
+  <button class="btn" type="submit">Trimite</button>
+</form>
+<%- include('partials/footer') %>

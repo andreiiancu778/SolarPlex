@@ -1,0 +1,72 @@
+<%- include('partials/header', { titlu: 'Admin' }) %>
+<h1>Admin dashboard</h1>
+<p><a class="btn" href="/produse">Gestionează produsele (CRUD)</a></p>
+
+<div class="stats">
+  <div class="stat"><b><%= s.produse %></b>Produse</div>
+  <div class="stat"><b><%= s.comenzi %></b>Comenzi</div>
+  <div class="stat"><b><%= s.utilizatori %></b>Utilizatori</div>
+  <div class="stat"><b><%= Number(s.vanzari).toFixed(2) %> RON</b>Vânzări totale</div>
+</div>
+
+<h2>Comenzi recente</h2>
+<div class="panel"><table class="tbl">
+  <tr><th>#</th><th>Client</th><th>Data</th><th>Valoare</th><th>Status</th></tr>
+  <% comenzi.forEach(c => { %>
+    <tr>
+      <td><%= c.codcom %></td><td><%= c.nume %></td>
+      <td><%= new Date(c.data_comanda).toLocaleDateString('ro-RO') %></td>
+      <td><%= c.valoare %> RON</td>
+      <td>
+        <form class="inline" method="POST" action="/admin/comanda/<%= c.codcom %>/status">
+          <select name="status">
+            <% ['inregistrata','in procesare','expediata','livrata','anulata'].forEach(st => { %>
+              <option <%= st === c.status ? 'selected' : '' %>><%= st %></option>
+            <% }) %>
+          </select>
+          <button class="btn-sm">Salvează</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+</table></div>
+
+<h2>Produse cu stoc mic (&lt; 10)</h2>
+<div class="panel">
+  <% if (!stocMic.length) { %>Toate produsele au stoc suficient.<% } %>
+  <% stocMic.forEach(p => { %>
+    <div><a href="/produse/<%= p.codp %>/edit"><u><%= p.den %></u></a> - <strong><%= p.stoc %></strong> buc.</div>
+  <% }) %>
+</div>
+
+<h2>Categorii</h2>
+<div class="panel">
+  <% categorii.forEach(c => { %>
+    <form class="inline" method="POST" action="/admin/categorii/<%= c.codcat %>">
+      <input name="denumire" value="<%= c.denumire %>" required>
+      <input name="descriere" value="<%= c.descriere || '' %>" size="40">
+      <small><%= c.nr %> produse</small>
+      <button class="btn-sm">Salvează</button>
+      <button class="btn-sm btn-red" formaction="/admin/categorii/<%= c.codcat %>/sterge"
+        onclick="return confirm('Se șterg și toate produsele din categorie! Continui?')">Șterge</button>
+    </form>
+  <% }) %>
+  <hr>
+  <form class="inline" method="POST" action="/admin/categorii">
+    <input name="denumire" placeholder="Categorie nouă" required>
+    <input name="descriere" placeholder="Descriere" size="40">
+    <button class="btn-sm">+ Adaugă</button>
+  </form>
+</div>
+
+<h2>Ultimele recenzii</h2>
+<div class="panel">
+  <% recenzii.forEach(r => { %>
+    <form class="inline" method="POST" action="/recenzii/<%= r.codrec %>/sterge">
+      <input type="hidden" name="inapoi" value="admin">
+      <span><strong><%= r.den %></strong> · <%= r.nume %> · <%= r.rating %>★ · <%= r.comentariu %></span>
+      <button class="btn-sm btn-red">Șterge</button>
+    </form>
+  <% }) %>
+</div>
+<%- include('partials/footer') %>

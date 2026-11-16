@@ -1,0 +1,10 @@
+<a class="card" href="/produs/<%= p.codp %>">
+  <div class="card-img"><%= icon(p.categorie) %></div>
+  <div class="card-body">
+    <span class="tag"><%= p.categorie %></span>
+    <h3><%= p.den %></h3>
+    <% if (p.putere) { %><p class="spec"><%= p.putere %> W</p><% } %>
+    <p class="price"><%= p.pret %> RON</p>
+    <p class="<%= p.stoc > 0 ? 'ok' : 'out' %>"><%= p.stoc > 0 ? 'În stoc' : 'Stoc epuizat' %></p>
+  </div>
+</a>

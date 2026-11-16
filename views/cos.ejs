@@ -1,0 +1,21 @@
+<%- include('partials/header', { titlu: 'Coș' }) %>
+<h1>Coșul tău</h1>
+<% if (!linii.length) { %>
+  <p>Coșul este gol. <a href="/catalog"><u>Vezi catalogul</u></a></p>
+<% } else { %>
+  <table class="tbl">
+    <tr><th>Produs</th><th>Preț</th><th>Cantitate</th><th>Subtotal</th><th></th></tr>
+    <% linii.forEach(l => { %>
+      <tr>
+        <td><a href="/produs/<%= l.codp %>"><%= l.den %></a></td>
+        <td><%= l.pret %> RON</td>
+        <td><%= l.cant %></td>
+        <td><%= l.subtotal.toFixed(2) %> RON</td>
+        <td><form method="POST" action="/cos/sterge/<%= l.codp %>"><button class="btn-sm btn-red">Șterge</button></form></td>
+      </tr>
+    <% }) %>
+  </table>
+  <p class="total">Total: <%= total.toFixed(2) %> RON</p>
+  <form method="POST" action="/cos/comanda" style="text-align:right"><button class="btn">Plasează comanda</button></form>
+<% } %>
+<%- include('partials/footer') %>
